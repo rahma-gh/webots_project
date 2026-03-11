@@ -1,0 +1,19 @@
+{
+  "robot_moved": true,
+  "box_picked": true,
+  "box_delivered": true,
+  "gripper_worked": true,
+  "final_distance": 0.0018,
+  "max_box_height": 0.6784799869647191,
+  "initial_box_position": [
+    1.0,
+    -0.75,
+    0.20492526
+  ],
+  "final_box_position": [
+    -2.1850780815775503,
+    0.8147660598873006,
+    0.13992861777801002
+  ],
+  "duration": 67.76
+}
