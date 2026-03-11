@@ -1,0 +1,38 @@
+name: CI Pipeline - Architecture 1
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  tests-statiques:
+    name: Tests Statiques
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Installer Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Installer les dépendances
+        run: |
+          pip install pytest pytest-html
+
+      - name: Lancer les tests statiques
+        run: |
+          pytest tests/test_communication.py \
+                 tests/test_functional.py \
+                 tests/test_realtime.py \
+                 tests/test_safety.py \
+                 -v --html=reports/report.html
+
+      - name: Upload rapport
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: rapport-tests
+          path: reports/report.html
