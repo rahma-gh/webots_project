@@ -31,7 +31,7 @@ jobs:
                  -v --html=reports/report.html
 
       - name: Upload rapport
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: rapport-tests
