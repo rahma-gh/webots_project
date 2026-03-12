@@ -71,7 +71,13 @@ dist_moved = math.sqrt(
 )
 results["robot_moved"] = dist_moved > 0.1
 
-output_path = r"C:\Users\User\pfe-simulation\reports\simulation_results.json"
+if os.name == 'nt':  # Windows
+    output_path = r"C:\Users\User\pfe-simulation\reports\simulation_results.json"
+else:  # Linux / Docker
+    output_path = os.path.normpath(
+        os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                     "../../../reports/simulation_results.json")
+    )
 with open(output_path, "w") as f:
     import json as json2
     json2.dump(results, f, indent=2)

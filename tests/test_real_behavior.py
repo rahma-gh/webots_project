@@ -1,11 +1,15 @@
-"""Vrais tests comportementaux — pick and place Webots."""
 import subprocess
 import time
 import os
 import json
 import pytest
 
-WEBOTS_PATH = "C:/Program Files/Webots/msys64/mingw64/bin/webots.exe"
+# Chemin Webots selon le système
+if os.name == 'nt':  # Windows
+    WEBOTS_PATH = "C:/Program Files/Webots/msys64/mingw64/bin/webots.exe"
+else:  # Linux / Docker
+    WEBOTS_PATH = "webots"
+
 WORLD_PATH = os.path.abspath("simulation/pick_and_place.wbt")
 RESULTS_PATH = os.path.abspath("reports/simulation_results.json")
 
