@@ -6,7 +6,7 @@ on:
 
 jobs:
   tests-statiques:
-    name: Tests Statiques
+    name: "🧪 Tests Statiques"
     runs-on: ubuntu-latest
 
     steps:
@@ -19,8 +19,7 @@ jobs:
           python-version: '3.11'
 
       - name: Installer les dépendances
-        run: |
-          pip install pytest pytest-html
+        run: pip install pytest pytest-html
 
       - name: Lancer les tests statiques
         run: |
@@ -28,11 +27,41 @@ jobs:
                  tests/test_functional.py \
                  tests/test_realtime.py \
                  tests/test_safety.py \
-                 -v --html=reports/report.html
+                 -v --html=reports/report_statique.html
 
-      - name: Upload rapport
+      - name: Upload rapport statique
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: rapport-tests
-          path: reports/report.html
+          name: rapport-tests-statiques
+          path: reports/report_statique.html
+
+  tests-comportementaux:
+    name: "🤖 Tests Comportementaux Docker+Webots"
+    runs-on: ubuntu-22.04
+    needs: tests-statiques
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build image Docker
+        run: docker build -t pfe-simulation .
+
+      - name: Lancer les tests dans Docker
+        run: |
+          docker run \
+            --name pfe-test \
+            pfe-simulation
+
+      - name: Récupérer les rapports
+        if: always()
+        run: |
+          docker cp pfe-test:/app/reports/. reports/
+
+      - name: Upload rapport comportemental
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rapport-tests-comportementaux
+          path: reports/
