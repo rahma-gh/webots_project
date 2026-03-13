@@ -13,6 +13,7 @@ targetPosition[2] = 0.0350
 
 boxNode = robot.getFromDef("PRODUCT")
 
+# Données à collecter
 results = {
     "robot_moved": False,
     "box_picked": False,
@@ -64,6 +65,7 @@ while robot.step(timestep) != -1:
     elif not boxPicked and position[2] > 0.21:
         boxPicked = True
 
+# Vérifier si le robot a bougé
 final_pos = boxNode.getPosition()
 dist_moved = math.sqrt(
     math.pow(final_pos[0] - initial_pos[0], 2) +
@@ -71,16 +73,16 @@ dist_moved = math.sqrt(
 )
 results["robot_moved"] = dist_moved > 0.1
 
-if os.name == 'nt':  # Windows
-    output_path = r"C:\Users\User\pfe-simulation\reports\simulation_results.json"
-else:  # Linux / Docker
-    output_path = os.path.normpath(
-        os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                     "../../../reports/simulation_results.json")
-    )
-with open(output_path, "w") as f:
-    import json as json2
-    json2.dump(results, f, indent=2)
+# Sauvegarder JSON
+output_path = r"C:\Users\User\pfe-simulation\reports\simulation_results.json"
 
-print("Results saved!")
+with open(output_path, 'w') as f:
+    json.dump(results, f, indent=2)
+
+print(f"✅ Résultats sauvegardés !")
+print(f"   Robot bougé     : {results['robot_moved']}")
+print(f"   Boîte saisie    : {results['box_picked']}")
+print(f"   Boîte livrée    : {results['box_delivered']}")
+print(f"   Distance finale : {results['final_distance']:.4f}m")
+
 robot.simulationSetMode(Supervisor.SIMULATION_MODE_PAUSE)
