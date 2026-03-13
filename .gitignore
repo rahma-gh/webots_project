@@ -1,0 +1,25 @@
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Cache pytest
+.pytest_cache/
+
+# Résultats générés par la simulation
+reports/simulation_results.json
+reports/report.html
+reports/report_statique.html
+reports/report_comportemental.html
+reports/assets/
+
+# Environnements virtuels
+venv/
+.env/
+
+# Fichiers VS Code
+.vscode/
+
+# Fichiers Windows
+Thumbs.db
+desktop.ini
