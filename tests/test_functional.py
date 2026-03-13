@@ -14,7 +14,7 @@ ARM_PICK_POSITIONS = {
 }
 
 def test_arm_velocities_defined():
-    """Les vitesses des moteurs du bras sont-elles définies ?"""
+    """Less vitesses des moteurs du bras sont-elles définies ?"""
     assert len(ARM_VELOCITIES) == 5
     for vel in ARM_VELOCITIES:
         assert vel > 0
