@@ -52,19 +52,19 @@ CMD ["bash", "-c", "\
     export DISPLAY=:99 && \
     Xvfb :99 -screen 0 1024x768x24 & \
     sleep 3 && \
-    echo '🚀 Lancement Webots...' && \
+    echo ' Lancement Webots...' && \
     timeout 150 webots --mode=fast --batch simulation/pick_and_place.wbt & \
     WEBOTS_PID=$! && \
-    echo '⏳ Attente du JSON...' && \
+    echo ' Attente du JSON...' && \
     for i in $(seq 1 60); do \
         if [ -f /app/reports/simulation_results.json ]; then \
-            echo '✅ JSON trouvé !'; \
+            echo ' JSON trouvé !'; \
             break; \
         fi; \
         sleep 3; \
     done && \
     kill $WEBOTS_PID 2>/dev/null || true && \
     sleep 2 && \
-    echo '🧪 Lancement pytest...' && \
+    echo ' Lancement pytest...' && \
     pytest tests/ -v --html=reports/report.html \
 "]

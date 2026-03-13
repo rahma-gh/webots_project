@@ -13,21 +13,21 @@ def test_move_forward_duration():
     duration_ms = STEPS_MOVE_FORWARD * TIMESTEP
     duration_sec = duration_ms / 1000
     assert duration_sec < 20.0
-    print(f"✅ Durée avancement : {duration_sec:.2f}s")
+    print(f" Durée avancement : {duration_sec:.2f}s")
 
 def test_gripper_close_duration():
     """La fermeture du gripper dure-t-elle moins de 5 secondes ?"""
     duration_ms = STEPS_GRIPPER_CLOSE * TIMESTEP
     duration_sec = duration_ms / 1000
     assert duration_sec < 5.0
-    print(f"✅ Durée fermeture gripper : {duration_sec:.2f}s")
+    print(f" Durée fermeture gripper : {duration_sec:.2f}s")
 
 def test_lift_arm_duration():
     """Le levage du bras dure-t-il moins de 10 secondes ?"""
     duration_ms = STEPS_LIFT_ARM * TIMESTEP
     duration_sec = duration_ms / 1000
     assert duration_sec < 10.0
-    print(f"✅ Durée levage bras : {duration_sec:.2f}s")
+    print(f" Durée levage bras : {duration_sec:.2f}s")
 
 def test_total_cycle_duration():
     """Le cycle complet dure-t-il moins de 60 secondes ?"""
@@ -35,4 +35,4 @@ def test_total_cycle_duration():
                    STEPS_LIFT_ARM + STEPS_ROTATE)
     total_sec = (total_steps * TIMESTEP) / 1000
     assert total_sec < 60.0
-    print(f"✅ Durée cycle total : {total_sec:.2f}s")
+    print(f" Durée cycle total : {total_sec:.2f}s")

@@ -6,7 +6,7 @@ on:
 
 jobs:
   tests-statiques:
-    name: "🧪 Tests Statiques"
+    name: " Tests Statiques"
     runs-on: ubuntu-latest
 
     steps:
@@ -37,7 +37,7 @@ jobs:
           path: reports/report_statique.html
 
   tests-comportementaux:
-    name: "🤖 Tests Comportementaux Docker+Webots"
+    name: " Tests Comportementaux Docker+Webots"
     runs-on: ubuntu-22.04
     needs: tests-statiques
 

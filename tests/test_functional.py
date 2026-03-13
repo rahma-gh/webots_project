@@ -18,22 +18,22 @@ def test_arm_velocities_defined():
     assert len(ARM_VELOCITIES) == 5
     for vel in ARM_VELOCITIES:
         assert vel > 0
-    print("✅ 5 vitesses de moteurs définies")
+    print(" 5 vitesses de moteurs définies")
 
 def test_pick_positions_defined():
     """Les positions de saisie sont-elles définies ?"""
     assert "arm2" in ARM_PICK_POSITIONS
     assert "arm3" in ARM_PICK_POSITIONS
     assert "arm4" in ARM_PICK_POSITIONS
-    print("✅ Positions de pick définies")
+    print(" Positions de pick définies")
 
 def test_gripper_close_position_valid():
     """La position de fermeture du gripper est-elle valide ?"""
     assert GRIPPER_CLOSE_POSITION > 0
     assert GRIPPER_CLOSE_POSITION < 1.0
-    print(f"✅ Position gripper : {GRIPPER_CLOSE_POSITION}")
+    print(f" Position gripper : {GRIPPER_CLOSE_POSITION}")
 
 def test_forward_velocity_positive():
     """La vitesse d'avancement est-elle positive ?"""
     assert WHEEL_FORWARD_VELOCITY > 0
-    print(f"✅ Vitesse d'avancement : {WHEEL_FORWARD_VELOCITY}")
+    print(f" Vitesse d'avancement : {WHEEL_FORWARD_VELOCITY}")

@@ -4,15 +4,3 @@
   <controller>../controllers/pick_and_place</controller>
   <controller>../controllers/pick_and_place_benchmark</controller>
 </project>
-```
-
----
-
-## 👉 Étape 2 — Dans Webots, ouvre la scène via File → Open World
-```
-C:\Users\User\pfe-simulation\simulation\pick_and_place.wbt
-```
-
-Vérifie dans la console Webots que tu vois :
-```
-"No Project" → doit disparaître ✅
