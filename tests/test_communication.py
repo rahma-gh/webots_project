@@ -1,4 +1,4 @@
-"""Tests de communication — fichiers et structure."""
+"""Tests de communication — fichiers et structure"""
 import pytest
 import os
 
