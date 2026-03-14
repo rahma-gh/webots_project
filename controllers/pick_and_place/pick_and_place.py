@@ -85,16 +85,16 @@ armMotors[1].setPosition(0)
 robot.step(200 * timestep)
 
 # Rotate the robot.
-wheels[0].setVelocity(0)#2.5 
+wheels[0].setVelocity(2.5)
 wheels[1].setVelocity(-2.5)
-wheels[2].setVelocity(0)#2.5
+wheels[2].setVelocity(2.5)
 wheels[3].setVelocity(-2.5)
 # Wait for a fixed amount to step that the robot rotates.
 robot.step(690 * timestep)
 
 # Move forward.
-wheels[1].setVelocity(0)#2.5
-wheels[3].setVelocity(0)#2.5
+wheels[1].setVelocity(2.5)
+wheels[3].setVelocity(2.5)
 robot.step(900 * timestep)
 
 # Rotate the robot.
