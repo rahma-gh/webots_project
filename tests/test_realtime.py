@@ -3,7 +3,7 @@ import pytest
 
 # Paramètres temporels extraits du contrôleur
 TIMESTEP = 32  # ms (valeur typique Webots)
-STEPS_MOVE_FORWARD = 520
+STEPS_MOVE_FORWARD = 1500 #520
 STEPS_GRIPPER_CLOSE = 50
 STEPS_LIFT_ARM = 200
 STEPS_ROTATE = 690

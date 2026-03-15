@@ -6,7 +6,7 @@ sys.path.insert(0, "C:/Program Files/Webots/lib/controller/python")
 # Paramètres du robot extraits du contrôleur
 ARM_VELOCITIES = [0.2, 0.5, 0.5, 0.3, 0.5]
 WHEEL_FORWARD_VELOCITY = 7.0
-GRIPPER_CLOSE_POSITION = 0.013
+GRIPPER_CLOSE_POSITION = 1.5 #0.013
 ARM_PICK_POSITIONS = {
     "arm2": -0.55,
     "arm3": -0.9,
