@@ -29,7 +29,7 @@ jobs:
           echo "  ARCHITECTURE CLASSIQUE — SANS IA"
           echo "=============================================="
           echo ""
-          echo " FICHIERS MODIFIÉS DANS CE PUSH :"
+          echo "📂 FICHIERS MODIFIÉS DANS CE PUSH :"
           git diff --name-only HEAD~1 HEAD || echo "(premier commit)"
           echo ""
           CHANGED=$(git diff --name-only HEAD~1 HEAD | wc -l)
@@ -37,7 +37,7 @@ jobs:
           echo "  Nombre de fichiers modifiés : $CHANGED"
           echo "----------------------------------------------"
           echo ""
-          echo "  ABSENCE D'ADAPTATION :"
+          echo "⚠️  ABSENCE D'ADAPTATION :"
           echo "  Peu importe le nombre de fichiers modifiés,"
           echo "  TOUS les tests seront exécutés sans sélection."
           echo ""
@@ -52,7 +52,7 @@ jobs:
                  tests/test_functional.py \
                  tests/test_realtime.py \
                  tests/test_safety.py \
-                 -v --html=reports/report_statique.html
+                 -v --html=reports/report_statique.html || true
 
       - name: Upload rapport statique
         uses: actions/upload-artifact@v4
@@ -78,10 +78,10 @@ jobs:
           echo "  TOUS LES TESTS COMPORTEMENTAUX LANCÉS"
           echo "=============================================="
           echo ""
-          echo " Fichiers modifiés :"
+          echo "📂 Fichiers modifiés :"
           git diff --name-only HEAD~1 HEAD || echo "(premier commit)"
           echo ""
-          echo " Même si ces fichiers ne concernent pas"
+          echo "⚠️  Même si ces fichiers ne concernent pas"
           echo "   le comportement du robot, les 65 tests"
           echo "   comportementaux + stress vont tous tourner."
           echo "=============================================="

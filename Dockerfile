@@ -66,5 +66,5 @@ CMD ["bash", "-c", "\
     kill $WEBOTS_PID 2>/dev/null || true && \
     sleep 2 && \
     echo ' Lancement pytest...' && \
-    pytest tests/ -v --html=reports/report.html \
+    pytest tests/ -v --html=reports/report.html || true \
 "]

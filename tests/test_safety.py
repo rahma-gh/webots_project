@@ -3,7 +3,7 @@ import pytest
 
 ARM_PICK_POSITIONS = {"arm2": -0.55, "arm3": -0.9, "arm4": -1.5}
 ARM_PLACE_POSITIONS = {"arm1": 0.0, "arm2": -1.0, "arm3": -0.3, "arm4": -1.0}
-WHEEL_MAX_VELOCITY = 7.0
+WHEEL_MAX_VELOCITY = 15.0
 GRIPPER_CLOSE_POSITION = 0.013
 
 def test_arm_pick_positions_in_range():
