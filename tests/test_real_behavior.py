@@ -28,7 +28,7 @@ def run_simulation():
     if os.path.exists(RESULTS_PATH):
         os.remove(RESULTS_PATH)
 
-    print(f"\n🚀 Lancement simulation Webots...")
+    print(f"\n Lancement simulation Webots...")
     cmd = [WEBOTS_PATH, "--mode=fast", "--batch", "--no-rendering", WORLD_PATH]
 
     start = time.time()
@@ -64,7 +64,7 @@ def test_box_picked():
     """Est-ce que la boîte a été saisie ?"""
     results = load_results()
     max_height = round(results.get("max_box_height", 0), 3)
-    print(f"\n📦 Hauteur max boîte : {max_height}m")
+    print(f"\n Hauteur max boîte : {max_height}m")
     assert results["box_picked"], \
         f" La boîte n'a pas été saisie ! Hauteur max : {max_height}m"
     print(f" La boîte a été saisie ! Hauteur max : {max_height}m")
@@ -73,7 +73,7 @@ def test_box_picked():
 def test_gripper_worked():
     """Est-ce que le gripper a bien fonctionné ?"""
     results = load_results()
-    assert results["gripper_worked"], "❌ Le gripper n'a pas fonctionné !"
+    assert results["gripper_worked"], " Le gripper n'a pas fonctionné !"
     print(" Le gripper a bien fonctionné !")
 
 

@@ -32,10 +32,10 @@ TOTAL_STEPS = (STEPS_MOVE_FORWARD + STEPS_GRIPPER_CLOSE +
 WHEEL_VELOCITY = 7.0
 ARM_VELOCITIES = [0.2, 0.5, 0.5, 0.3, 0.5]
 GRIPPER_CLOSE_POSITION = 0.013
-EXPECTED_MAX_DURATION = 120.0  # ✅ corrigé (était 90.0)
+EXPECTED_MAX_DURATION = 120.0  #  corrigé (était 90.0)
 EXPECTED_MIN_DURATION = 5.0
 PRECISION_THRESHOLD = 0.05     # mètres
-EFFICIENCY_THRESHOLD = 0.70    # ✅ corrigé (était 0.80)
+EFFICIENCY_THRESHOLD = 0.70    #  corrigé (était 0.80)
 
 
 # ─────────────────────────────────────────────
@@ -49,28 +49,28 @@ class TestPerformanceTemporelle:
         time.sleep(0.3)
         duree = (STEPS_MOVE_FORWARD * TIMESTEP) / 1000
         assert duree < 20.0, f"Déplacement trop lent : {duree:.2f}s"
-        print(f"\n⏱️  Durée déplacement : {duree:.2f}s (< 20s)")
+        print(f"\n  Durée déplacement : {duree:.2f}s (< 20s)")
 
     def test_duree_fermeture_gripper_acceptable(self):
         """La fermeture du gripper doit être rapide (< 3s)."""
         time.sleep(0.3)
         duree = (STEPS_GRIPPER_CLOSE * TIMESTEP) / 1000
         assert duree < 3.0, f"Fermeture gripper trop lente : {duree:.2f}s"
-        print(f"\n⏱️  Durée fermeture gripper : {duree:.2f}s (< 3s)")
+        print(f"\n  Durée fermeture gripper : {duree:.2f}s (< 3s)")
 
     def test_duree_levage_bras_acceptable(self):
         """Le levage du bras ne doit pas dépasser 8 secondes."""
         time.sleep(0.3)
         duree = (STEPS_LIFT_ARM * TIMESTEP) / 1000
         assert duree < 8.0, f"Levage trop lent : {duree:.2f}s"
-        print(f"\n⏱️  Durée levage bras : {duree:.2f}s (< 8s)")
+        print(f"\n  Durée levage bras : {duree:.2f}s (< 8s)")
 
     def test_duree_rotation_acceptable(self):
         """La rotation du robot doit durer moins de 25 secondes."""
         time.sleep(0.3)
         duree = (STEPS_ROTATE * TIMESTEP) / 1000
         assert duree < 25.0, f"Rotation trop lente : {duree:.2f}s"
-        print(f"\n⏱️  Durée rotation : {duree:.2f}s (< 25s)")
+        print(f"\n  Durée rotation : {duree:.2f}s (< 25s)")
 
     def test_duree_cycle_complet(self):
         """Le cycle complet pick-and-place doit durer moins de 120 secondes."""
@@ -78,7 +78,7 @@ class TestPerformanceTemporelle:
         duree_totale = (TOTAL_STEPS * TIMESTEP) / 1000
         assert duree_totale < EXPECTED_MAX_DURATION, \
             f"Cycle trop long : {duree_totale:.2f}s"
-        print(f"\n⏱️  Durée cycle complet : {duree_totale:.2f}s (< {EXPECTED_MAX_DURATION}s)")
+        print(f"\n  Durée cycle complet : {duree_totale:.2f}s (< {EXPECTED_MAX_DURATION}s)")
 
     def test_duree_simulation_reelle(self):
         """La durée réelle de simulation est dans les bornes attendues."""
@@ -87,7 +87,7 @@ class TestPerformanceTemporelle:
         duration = results.get("duration", 0)
         assert EXPECTED_MIN_DURATION < duration < EXPECTED_MAX_DURATION, \
             f"Durée hors bornes : {duration:.2f}s"
-        print(f"\n⏱️  Durée simulation réelle : {duration:.2f}s")
+        print(f"\n  Durée simulation réelle : {duration:.2f}s")
 
 
 # ─────────────────────────────────────────────
@@ -103,7 +103,7 @@ class TestPerformancePrecision:
         distance = results.get("final_distance", 999)
         assert distance < PRECISION_THRESHOLD, \
             f"Précision insuffisante : {distance:.4f}m (seuil : {PRECISION_THRESHOLD}m)"
-        print(f"\n🎯 Précision livraison : {distance:.4f}m (< {PRECISION_THRESHOLD}m)")
+        print(f"\n Précision livraison : {distance:.4f}m (< {PRECISION_THRESHOLD}m)")
 
     def test_hauteur_maximale_boite(self):
         """La boîte doit atteindre une hauteur suffisante lors du pick."""
@@ -112,7 +112,7 @@ class TestPerformancePrecision:
         max_height = results.get("max_box_height", 0)
         assert max_height > 0.25, \
             f"Hauteur insuffisante : {max_height:.3f}m (minimum : 0.25m)"
-        print(f"\n📦 Hauteur max boîte : {max_height:.3f}m (> 0.25m)")
+        print(f"\n Hauteur max boîte : {max_height:.3f}m (> 0.25m)")
 
     def test_position_initiale_connue(self):
         """La position initiale de la boîte doit être enregistrée."""
@@ -121,7 +121,7 @@ class TestPerformancePrecision:
         init_pos = results.get("initial_box_position")
         assert init_pos is not None, "Position initiale non enregistrée !"
         assert len(init_pos) == 3, "Position initiale incomplète (doit avoir x, y, z)"
-        print(f"\n📍 Position initiale : {init_pos}")
+        print(f"\n Position initiale : {init_pos}")
 
     def test_deplacement_significatif(self):
         """Le déplacement total de la boîte doit être significatif (> 0.5m)."""
@@ -141,7 +141,7 @@ class TestPerformancePrecision:
         time.sleep(0.3)
         assert 5.0 <= WHEEL_VELOCITY <= 10.0, \
             f"Vitesse roues non optimale : {WHEEL_VELOCITY}"
-        print(f"\n🚗 Vitesse roues : {WHEEL_VELOCITY} (optimale entre 5 et 10)")
+        print(f"\n Vitesse roues : {WHEEL_VELOCITY} (optimale entre 5 et 10)")
 
     def test_velocites_bras_progressives(self):
         """Les vitesses du bras doivent être progressives et adaptées."""
@@ -151,7 +151,7 @@ class TestPerformancePrecision:
             "arm1 devrait être plus lent que arm2"
         assert ARM_VELOCITIES[1] == ARM_VELOCITIES[2], \
             "arm2 et arm3 devraient avoir la même vitesse"
-        print(f"\n🦾 Vitesses bras progressives : {ARM_VELOCITIES}")
+        print(f"\n Vitesses bras progressives : {ARM_VELOCITIES}")
 
 
 # ─────────────────────────────────────────────
@@ -167,14 +167,14 @@ class TestPerformanceEfficacite:
         ratio = steps_utiles / TOTAL_STEPS
         assert ratio > EFFICIENCY_THRESHOLD, \
             f"Efficacité insuffisante : {ratio:.1%} (seuil : {EFFICIENCY_THRESHOLD:.0%})"
-        print(f"\n⚡ Ratio efficacité : {ratio:.1%} (> {EFFICIENCY_THRESHOLD:.0%})")
+        print(f"\n Ratio efficacité : {ratio:.1%} (> {EFFICIENCY_THRESHOLD:.0%})")
 
     def test_gripper_position_efficace(self):
         """La position du gripper doit être efficace (ni trop ouverte, ni trop fermée)."""
         time.sleep(0.3)
         assert 0.005 < GRIPPER_CLOSE_POSITION < 0.05, \
             f"Position gripper non efficace : {GRIPPER_CLOSE_POSITION}"
-        print(f"\n🤏 Position gripper efficace : {GRIPPER_CLOSE_POSITION}")
+        print(f"\n Position gripper efficace : {GRIPPER_CLOSE_POSITION}")
 
     def test_nombre_phases_mouvement(self):
         """Le mouvement doit avoir exactement 5 phases définies."""
@@ -189,7 +189,7 @@ class TestPerformanceEfficacite:
         assert len(phases) == 5, "Le nombre de phases est incorrect !"
         for nom, steps in phases.items():
             assert steps > 0, f"Phase '{nom}' a 0 steps !"
-        print(f"\n📋 5 phases de mouvement définies et valides")
+        print(f"\n 5 phases de mouvement définies et valides")
 
     def test_pas_de_temps_mort_excessif(self):
         """Les pauses entre les phases ne doivent pas dépasser 20% du temps total."""
@@ -198,7 +198,7 @@ class TestPerformanceEfficacite:
         ratio_pause = steps_pause / TOTAL_STEPS
         assert ratio_pause < 0.20, \
             f"Trop de temps mort : {ratio_pause:.1%}"
-        print(f"\n⏸️  Ratio temps mort : {ratio_pause:.1%} (< 20%)")
+        print(f"\n  Ratio temps mort : {ratio_pause:.1%} (< 20%)")
 
     def test_simulation_complete_sans_timeout(self):
         """La simulation doit se terminer naturellement, sans timeout forcé."""
@@ -208,4 +208,4 @@ class TestPerformanceEfficacite:
         # Si durée proche de 90s, c'est un timeout
         assert duration < 85.0, \
             f"La simulation semble avoir été interrompue par timeout : {duration:.1f}s"
-        print(f"\n✅ Simulation terminée naturellement en {duration:.1f}s")
+        print(f"\n Simulation terminée naturellement en {duration:.1f}s")

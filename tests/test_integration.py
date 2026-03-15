@@ -35,7 +35,7 @@ class TestIntegrationFichiers:
         assert os.path.exists(CONTROLLER_ROBOT), f"Contrôleur robot manquant"
         assert os.path.exists(CONTROLLER_BENCHMARK), f"Contrôleur benchmark manquant"
         assert os.path.exists(CONTROLLER_BELT), f"Contrôleur convoyeur manquant"
-        print(f"\n✅ INT-01 : scène + 3 contrôleurs présents")
+        print(f"\n INT-01 : scène + 3 contrôleurs présents")
 
     def test_integration_dossier_reports_avec_resultats(self):
         """INT-02 : Le dossier reports contient bien les résultats de simulation."""
@@ -44,7 +44,7 @@ class TestIntegrationFichiers:
         assert os.path.exists(RESULTS_PATH), "Fichier résultats manquant !"
         taille = os.path.getsize(RESULTS_PATH)
         assert taille > 10, f"Fichier résultats vide ! ({taille} octets)"
-        print(f"\n✅ INT-02 : dossier reports avec résultats ({taille} octets)")
+        print(f"\n INT-02 : dossier reports avec résultats ({taille} octets)")
 
     def test_integration_controleur_benchmark_lisible(self):
         """INT-03 : Le contrôleur benchmark peut être lu et parsé."""
@@ -55,7 +55,7 @@ class TestIntegrationFichiers:
         assert "getFromDef" in contenu, "getFromDef non trouvé !"
         assert "json.dump" in contenu or "json2.dump" in contenu, \
             "Sauvegarde JSON non trouvée !"
-        print(f"\n✅ INT-03 : contrôleur benchmark valide")
+        print(f"\n INT-03 : contrôleur benchmark valide")
 
     def test_integration_controleur_robot_lisible(self):
         """INT-04 : Le contrôleur robot principal peut être lu et parsé."""
@@ -66,7 +66,7 @@ class TestIntegrationFichiers:
         assert "wheel" in contenu
         assert "arm" in contenu
         assert "finger" in contenu
-        print(f"\n✅ INT-04 : contrôleur robot valide")
+        print(f"\n INT-04 : contrôleur robot valide")
 
     def test_integration_controleur_convoyeur_lisible(self):
         """INT-05 : Le contrôleur du convoyeur peut être lu et parsé."""
@@ -75,7 +75,7 @@ class TestIntegrationFichiers:
             contenu = f.read()
         assert "Robot()" in contenu
         assert "belt motor" in contenu or "motor" in contenu
-        print(f"\n✅ INT-05 : contrôleur convoyeur valide")
+        print(f"\n INT-05 : contrôleur convoyeur valide")
 
 
 # ─────────────────────────────────────────────
@@ -92,7 +92,7 @@ class TestIntegrationComposantsRobot:
         # Le bras doit être plus lent que les roues (stabilité)
         assert arm_velocities[0] < wheel_velocity, \
             "Le bras ne devrait pas être plus rapide que les roues !"
-        print(f"\n✅ INT-06 : roues ({wheel_velocity}) plus rapides que bras ({arm_velocities[0]})")
+        print(f"\n INT-06 : roues ({wheel_velocity}) plus rapides que bras ({arm_velocities[0]})")
 
     def test_integration_gripper_et_bras_compatibles(self):
         """INT-07 : Les paramètres gripper et bras sont compatibles."""
@@ -101,7 +101,7 @@ class TestIntegrationComposantsRobot:
         arm_velocity_arm4 = 0.3
         # Gripper doit être plus précis (lent) que le bras
         assert gripper_velocity < arm_velocity_arm4
-        print(f"\n✅ INT-07 : gripper ({gripper_velocity}) plus précis que arm4 ({arm_velocity_arm4})")
+        print(f"\n INT-07 : gripper ({gripper_velocity}) plus précis que arm4 ({arm_velocity_arm4})")
 
     def test_integration_sequence_pick_place_complete(self):
         """INT-08 : La séquence pick-and-place complète est cohérente."""
@@ -112,7 +112,7 @@ class TestIntegrationComposantsRobot:
         assert results["box_picked"], "Étape 2 (saisie) échouée !"
         assert results["gripper_worked"], "Étape 3 (gripper) échouée !"
         assert results["box_delivered"], "Étape 4 (livraison) échouée !"
-        print(f"\n✅ INT-08 : séquence complète pick-and-place réussie")
+        print(f"\n INT-08 : séquence complète pick-and-place réussie")
 
     def test_integration_positions_pick_et_place_differentes(self):
         """INT-09 : Les positions de saisie et dépose sont bien différentes."""
@@ -124,7 +124,7 @@ class TestIntegrationComposantsRobot:
             "Les positions pick et place de arm2 sont identiques !"
         assert pick["arm3"] != place["arm3"], \
             "Les positions pick et place de arm3 sont identiques !"
-        print(f"\n✅ INT-09 : positions pick ≠ place (mouvement réel effectué)")
+        print(f"\n INT-09 : positions pick ≠ place (mouvement réel effectué)")
 
     def test_integration_boite_deplacee_vers_cible(self):
         """INT-10 : La boîte a bien été déplacée de sa position initiale vers la cible."""
@@ -138,7 +138,7 @@ class TestIntegrationComposantsRobot:
         distance_finale = results.get("final_distance", 999)
         assert distance_finale < 0.1, \
             f"Boîte pas arrivée à cible : {distance_finale:.4f}m"
-        print(f"\n✅ INT-10 : boîte déplacée de {deplacement:.3f}m, à {distance_finale:.4f}m de la cible")
+        print(f"\n INT-10 : boîte déplacée de {deplacement:.3f}m, à {distance_finale:.4f}m de la cible")
 
 
 # ─────────────────────────────────────────────
@@ -153,7 +153,7 @@ class TestIntegrationPipelineCICD:
         assert os.path.exists(".github/workflows/ci.yml") or \
                os.path.exists(".github/workflows"), \
                "Fichier CI/CD manquant !"
-        print(f"\n✅ INT-11 : fichier CI/CD présent")
+        print(f"\n INT-11 : fichier CI/CD présent")
 
     def test_integration_dockerfile_present(self):
         """INT-12 : Le Dockerfile est présent pour l'environnement Docker."""
@@ -163,7 +163,7 @@ class TestIntegrationPipelineCICD:
             contenu = f.read()
         assert "webots" in contenu.lower() or "WEBOTS" in contenu, \
             "Webots non référencé dans le Dockerfile !"
-        print(f"\n✅ INT-12 : Dockerfile présent et valide")
+        print(f"\n INT-12 : Dockerfile présent et valide")
 
     def test_integration_requirements_complets(self):
         """INT-13 : Les dépendances Python sont toutes listées."""
@@ -173,7 +173,7 @@ class TestIntegrationPipelineCICD:
             contenu = f.read()
         assert "pytest" in contenu, "pytest manquant dans requirements.txt !"
         assert "pytest-html" in contenu, "pytest-html manquant !"
-        print(f"\n✅ INT-13 : requirements.txt complet")
+        print(f"\n INT-13 : requirements.txt complet")
 
     def test_integration_rapport_genere(self):
         """INT-14 : Le rapport HTML a été généré après les tests."""
@@ -185,7 +185,7 @@ class TestIntegrationPipelineCICD:
         ]
         rapport_existe = any(os.path.exists(p) for p in rapport_paths)
         assert rapport_existe, "Aucun rapport HTML trouvé !"
-        print(f"\n✅ INT-14 : rapport HTML généré")
+        print(f"\n INT-14 : rapport HTML généré")
 
     def test_integration_conftest_charge(self):
         """INT-15 : Le conftest.py est présent et configure l'environnement."""
@@ -194,7 +194,7 @@ class TestIntegrationPipelineCICD:
         with open("conftest.py", 'r') as f:
             contenu = f.read()
         assert "WEBOTS_HOME" in contenu, "Configuration Webots manquante !"
-        print(f"\n✅ INT-15 : conftest.py présent et valide")
+        print(f"\n INT-15 : conftest.py présent et valide")
 
     def test_integration_fin_tous_composants_ok(self):
         """INT-16 : Vérification finale — tous les composants intégrés fonctionnent."""
@@ -214,4 +214,4 @@ class TestIntegrationPipelineCICD:
             results["gripper_worked"],
             results["box_delivered"]
         ]), "Au moins un composant a échoué !"
-        print(f"\n✅ INT-16 : INTÉGRATION COMPLÈTE — tous les composants opérationnels !")
+        print(f"\n INT-16 : INTÉGRATION COMPLÈTE — tous les composants opérationnels !")
