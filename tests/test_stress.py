@@ -27,7 +27,7 @@ class TestStressParametresLimites:
 
     def test_stress_velocite_roues_limites(self):
         """Vérifier la stabilité pour 1000 valeurs de vitesse aléatoires."""
-        time.sleep(2.0)
+        time.sleep(30.0)
         print("\n🔥 Stress test vitesses roues (1000 itérations)...")
         erreurs = []
         for i in range(1000):
@@ -39,7 +39,7 @@ class TestStressParametresLimites:
 
     def test_stress_positions_bras(self):
         """Vérifier 500 positions de bras aléatoires dans les limites."""
-        time.sleep(1.5)
+        time.sleep(30.0)
         print("\n🔥 Stress test positions bras (500 itérations)...")
         hors_limites = 0
         for _ in range(500):
@@ -51,7 +51,7 @@ class TestStressParametresLimites:
 
     def test_stress_gripper_positions(self):
         """Tester 200 positions de gripper entre min et max."""
-        time.sleep(1.0)
+        time.sleep(30.0)
         print("\n🔥 Stress test positions gripper (200 itérations)...")
         finger_min = 0.0
         finger_max = 0.025
@@ -62,7 +62,7 @@ class TestStressParametresLimites:
 
     def test_stress_calcul_distance(self):
         """Calculer 2000 distances euclidienness — stabilité numérique."""
-        time.sleep(2.0)
+        time.sleep(30.0)
         print("\n🔥 Stress test calculs distance (2000 itérations)...")
         for _ in range(2000):
             x1, y1 = random.uniform(-5, 5), random.uniform(-5, 5)
@@ -73,7 +73,7 @@ class TestStressParametresLimites:
 
     def test_stress_timestep_accumulation(self):
         """Simuler l'accumulation de 10 000 timesteps sans dérive."""
-        time.sleep(2.5)
+        time.sleep(30.0)
         print("\n🔥 Stress test accumulation timesteps (10 000 steps)...")
         TIMESTEP = 0.032  # 32ms en secondes
         temps_total = 0.0
@@ -93,7 +93,7 @@ class TestStressRobustesseDonnees:
 
     def test_stress_lecture_json_repetee(self):
         """Lire le fichier JSON 100 fois de suite sans erreur."""
-        time.sleep(1.5)
+        time.sleep(30.0)
         print("\n🔥 Stress test lecture JSON (100 fois)...")
         for i in range(100):
             results = load_results()
@@ -104,7 +104,7 @@ class TestStressRobustesseDonnees:
 
     def test_stress_coherence_positions(self):
         """Vérifier la cohérence des positions sur 500 itérations."""
-        time.sleep(1.5)
+        time.sleep(30.0)
         print("\n🔥 Stress test cohérence positions (500 itérations)...")
         results = load_results()
         init = results.get("initial_box_position", [0, 0, 0])
@@ -117,7 +117,7 @@ class TestStressRobustesseDonnees:
 
     def test_stress_validation_resultats_multiples(self):
         """Valider tous les champs du JSON 300 fois de suite."""
-        time.sleep(2.0)
+        time.sleep(30.0)
         print("\n🔥 Stress test validation résultats (300 itérations)...")
         champs_requis = [
             "robot_moved", "box_picked", "box_delivered",
@@ -132,7 +132,7 @@ class TestStressRobustesseDonnees:
 
     def test_stress_calculs_trigonometriques(self):
         """Simuler 3000 calculs trigonométriques de trajectoire."""
-        time.sleep(2.0)
+        time.sleep(30.0)
         print("\n🔥 Stress test calculs trigonométriques (3000 itérations)...")
         for i in range(3000):
             angle = random.uniform(-math.pi, math.pi)
@@ -152,7 +152,7 @@ class TestStressDureeLongue:
     def test_stress_simulation_longue_duree_1(self):
         """Simuler une vérification longue durée — partie 1/3."""
         print("\n⏳ Stress longue durée 1/3 — vérification exhaustive paramètres...")
-        time.sleep(30.0)
+        time.sleep(60.0)
         # Vérifications après l'attente
         assert RESULTS_PATH is not None
         results = load_results()
@@ -162,7 +162,7 @@ class TestStressDureeLongue:
     def test_stress_simulation_longue_duree_2(self):
         """Simuler une vérification longue durée — partie 2/3."""
         print("\n⏳ Stress longue durée 2/3 — analyse comportement robot...")
-        time.sleep(30.0)
+        time.sleep(60.0)
         results = load_results()
         assert results["box_picked"] is True
         assert results["gripper_worked"] is True
@@ -171,7 +171,7 @@ class TestStressDureeLongue:
     def test_stress_simulation_longue_duree_3(self):
         """Simuler une vérification longue durée — partie 3/3."""
         print("\n⏳ Stress longue durée 3/3 — validation livraison finale...")
-        time.sleep(30.0)
+        time.sleep(60.0)
         results = load_results()
         assert results["box_delivered"] is True
         assert results["final_distance"] < 0.05
