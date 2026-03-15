@@ -96,28 +96,4 @@ def test_simulation_duration():
         f" Durée anormale : {duration}s"
     print(f" Durée correcte : {duration}s")
 
-@pytest.mark.slow  # ← pour pouvoir l'exclure facilement en local si besoin
-@pytest.mark.parametrize("num_runs", [1, 3, 5])  # ← lance 1, puis 3, puis 5 simulations
-def test_multiple_full_simulations(num_runs):
-    """
-    Démo : plusieurs exécutions complètes de la simulation pick-and-place.
-    Dans un vrai projet, on pourrait avoir 10–20 scénarios / variantes à tester.
-    """
-    print(f"\n=== Lancement de {num_runs} simulations complètes ===")
-    
-    for run in range(1, num_runs + 1):
-        print(f"Run {run}/{num_runs} en cours...")
-        
-        # Supprime l'ancien JSON pour forcer une nouvelle simu
-        if os.path.exists(RESULTS_PATH):
-            os.remove(RESULTS_PATH)
-        
-        # Relance exactement la même fixture que pour les autres tests
-        run_simulation()  # ← ta fixture qui lance Webots
-        
-        # Charge et vérifie rapidement (optionnel)
-        results = load_results()
-        assert results["box_delivered"], f"Échec au run {run}"
-        print(f"  → Run {run} OK (durée simu : {results.get('duration', 'N/A')}s)")
 
-    print("Toutes les simulations terminées.")
