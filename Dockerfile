@@ -33,7 +33,7 @@ RUN wget -qO- https://cyberbotics.com/Cyberbotics.asc | apt-key add - && \
     rm -rf /var/lib/apt/lists/*
 
 # Installer les dépendances Python
-RUN pip3 install pytest pytest-html
+RUN pip3 install pytest pytest-html numpy
 
 # Copier le projet
 COPY . /app
