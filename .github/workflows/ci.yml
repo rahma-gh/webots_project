@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
 
       - name: Installer Python
         uses: actions/setup-python@v4
@@ -20,6 +22,29 @@ jobs:
 
       - name: Installer les dépendances
         run: pip install pytest pytest-html
+
+      - name: "Absence d'adaptation — Analyse des changements"
+        run: |
+          echo "=============================================="
+          echo "  ARCHITECTURE CLASSIQUE — SANS IA"
+          echo "=============================================="
+          echo ""
+          echo " FICHIERS MODIFIÉS DANS CE PUSH :"
+          git diff --name-only HEAD~1 HEAD || echo "(premier commit)"
+          echo ""
+          CHANGED=$(git diff --name-only HEAD~1 HEAD | wc -l)
+          echo "----------------------------------------------"
+          echo "  Nombre de fichiers modifiés : $CHANGED"
+          echo "----------------------------------------------"
+          echo ""
+          echo "  ABSENCE D'ADAPTATION :"
+          echo "  Peu importe le nombre de fichiers modifiés,"
+          echo "  TOUS les tests seront exécutés sans sélection."
+          echo ""
+          echo "  → Tests statiques  : 20 tests"
+          echo "  → Tests comportementaux : 65 tests"
+          echo "  → TOTAL : 85 tests exécutés systématiquement"
+          echo "=============================================="
 
       - name: Lancer les tests statiques
         run: |
@@ -44,6 +69,22 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: "Absence d'adaptation — Rappel"
+        run: |
+          echo "=============================================="
+          echo "  TOUS LES TESTS COMPORTEMENTAUX LANCÉS"
+          echo "=============================================="
+          echo ""
+          echo " Fichiers modifiés :"
+          git diff --name-only HEAD~1 HEAD || echo "(premier commit)"
+          echo ""
+          echo " Même si ces fichiers ne concernent pas"
+          echo "   le comportement du robot, les 65 tests"
+          echo "   comportementaux + stress vont tous tourner."
+          echo "=============================================="
 
       - name: Build image Docker
         run: docker build -t pfe-simulation .
