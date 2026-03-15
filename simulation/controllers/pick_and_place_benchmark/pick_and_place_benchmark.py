@@ -74,7 +74,10 @@ dist_moved = math.sqrt(
 results["robot_moved"] = dist_moved > 0.1
 
 # Sauvegarder JSON
-output_path = r"C:\Users\User\pfe-simulation\reports\simulation_results.json"
+script_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(script_dir, "..", "..", ".."))
+output_path = os.path.join(project_root, "reports", "simulation_results.json")
+os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
 with open(output_path, 'w') as f:
     json.dump(results, f, indent=2)
