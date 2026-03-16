@@ -25,11 +25,11 @@ jobs:
 
       - name: Lancer les tests statiques
         run: |
-          pytest tests/test_communication.py \
-                 tests/test_functional.py \
-                 tests/test_realtime.py \
-                 tests/test_safety.py \
-                 -v --html=reports/report_statique.html || true
+           pytest tests/communication/ \
+           tests/functional/ \
+           tests/realtime/ \
+           tests/safety/ \
+           -v --html=reports/report_statique.html || true
 
       - name: Upload rapport statique
         uses: actions/upload-artifact@v4

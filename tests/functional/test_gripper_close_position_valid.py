@@ -1,6 +1,6 @@
 import pytest
 
-GRIPPER_CLOSE_POSITION = 0.013
+GRIPPER_CLOSE_POSITION = 1.5 #0.013
 
 def test_gripper_close_position_valid():
     assert GRIPPER_CLOSE_POSITION > 0
