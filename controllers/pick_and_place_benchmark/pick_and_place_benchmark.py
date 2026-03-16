@@ -1,4 +1,4 @@
-"""Controller program to manage the benchmark."""
+"""Conntroller program to manage the benchmark."""
 from controller import Supervisor
 import math
 import os
