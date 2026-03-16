@@ -1,8 +1,4 @@
-"""
-Tests de stress — simulation de charge et robustesse du système.
-Ces tests vérifient la stabilité du robot sous des conditions intensives.
-Ils simulent une validation exhaustive longue durée (architecture classique sans IA).
-"""
+
 import pytest
 import time
 import math

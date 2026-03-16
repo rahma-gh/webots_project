@@ -1,8 +1,4 @@
-"""
-Tests de régression — vérifier que rien n'est cassé après chaque modification.
-Dans l'architecture classique (sans IA), TOUS ces tests sont exécutés à chaque push,
-même si seulement un fichier a été modifié. C'est la limite principale.
-"""
+
 import pytest
 import time
 import math

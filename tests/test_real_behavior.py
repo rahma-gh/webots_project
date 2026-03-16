@@ -1,4 +1,4 @@
-"""Tests comportementaux — vérifie le vrai comportement du robot."""
+
 import os
 import json
 import pytest

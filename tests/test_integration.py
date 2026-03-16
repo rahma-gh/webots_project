@@ -1,8 +1,4 @@
-"""
-Tests d'intégration — vérifier que tous les composants fonctionnent ensemble.
-Ces tests valident l'interaction entre : robot, bras, gripper, convoyeur, cible.
-Dans l'architecture classique, ils sont tous exécutés sans sélection intelligente.
-"""
+
 import pytest
 import time
 import math

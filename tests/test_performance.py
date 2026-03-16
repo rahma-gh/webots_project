@@ -1,8 +1,4 @@
-"""
-Tests de performance — vitesse, précision et efficacité du robot.
-Ces tests vérifient que le robot respecte des critères de performance précis.
-Ils simulent une validation exhaustive qui prend du temps (architecture classique).
-"""
+
 import pytest
 import time
 import math

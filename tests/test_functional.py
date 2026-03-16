@@ -1,4 +1,4 @@
-"""Tests fonctionnels — logique du pick and place."""
+
 import pytest
 import sys
 sys.path.insert(0, "C:/Program Files/Webots/lib/controller/python")

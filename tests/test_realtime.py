@@ -1,4 +1,4 @@
-"""Tests temps réel — durées et steps de simulation."""
+
 import pytest
 
 # Paramètres temporels extraits du contrôleur

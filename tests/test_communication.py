@@ -1,8 +1,7 @@
-"""Tests de communication — fichiers et structure"""
+
 import pytest
 import os
 
-# Chemins selon le système
 if os.name == 'nt':  # Windows
     WEBOTS_HOME = "C:/Program Files/Webots"
 else:  # Linux (GitHub Actions)
@@ -10,14 +9,7 @@ else:  # Linux (GitHub Actions)
 
 SCENE_PATH = "simulation/pick_and_place.wbt"
 
-# ────────────────────────────────────────────────
-# IMPORTANT : adapte selon où tu as mis les contrôleurs
-# Option choisie ici : controllers/ à la racine (recommandé)
-# ────────────────────────────────────────────────
 CONTROLLER_PATH = "controllers/pick_and_place/pick_and_place.py"
-# Alternative (si tu avais gardé simulation/controllers/) :
-# CONTROLLER_PATH = "simulation/controllers/pick_and_place/pick_and_place.py"
-
 
 def test_scene_file_exists():
     assert os.path.exists(SCENE_PATH), f"Scène non trouvée : {SCENE_PATH}"
