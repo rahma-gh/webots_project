@@ -5,23 +5,15 @@ on:
     branches: [develop]
 
 jobs:
-  tests-statiques:
-    name: " Tests Statiques"
-    runs-on: ubuntu-latest
+  tests-complets:
+    name: "Tests Complets — Architecture Classique"
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           fetch-depth: 2
-
-      - name: Installer Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Installer les dépendances
-        run: pip install pytest pytest-html
 
       - name: "Absence d'adaptation — Analyse des changements"
         run: |
@@ -41,55 +33,13 @@ jobs:
           echo "  Peu importe le nombre de fichiers modifiés,"
           echo "  TOUS les tests seront exécutés sans sélection."
           echo ""
-          echo "  → Tests statiques  : 20 tests"
-          echo "  → Tests comportementaux : 65 tests"
           echo "  → TOTAL : 85 tests exécutés systématiquement"
-          echo "=============================================="
-
-      - name: Lancer les tests statiques
-        run: |
-          pytest tests/test_communication.py \
-                 tests/test_functional.py \
-                 tests/test_realtime.py \
-                 tests/test_safety.py \
-                 -v --html=reports/report_statique.html || true
-
-      - name: Upload rapport statique
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: rapport-tests-statiques
-          path: reports/report_statique.html
-
-  tests-comportementaux:
-    name: " Tests Comportementaux Docker+Webots"
-    runs-on: ubuntu-22.04
-    needs: tests-statiques
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
-
-      - name: "Absence d'adaptation — Rappel"
-        run: |
-          echo "=============================================="
-          echo "  TOUS LES TESTS COMPORTEMENTAUX LANCÉS"
-          echo "=============================================="
-          echo ""
-          echo "📂 Fichiers modifiés :"
-          git diff --name-only HEAD~1 HEAD || echo "(premier commit)"
-          echo ""
-          echo "⚠️  Même si ces fichiers ne concernent pas"
-          echo "   le comportement du robot, les 65 tests"
-          echo "   comportementaux + stress vont tous tourner."
           echo "=============================================="
 
       - name: Build image Docker
         run: docker build -t pfe-simulation .
 
-      - name: Lancer les tests dans Docker
+      - name: Lancer tous les tests dans Docker
         run: |
           docker run \
             --name pfe-test \
@@ -100,9 +50,9 @@ jobs:
         run: |
           docker cp pfe-test:/app/reports/. reports/
 
-      - name: Upload rapport comportemental
+      - name: Upload rapport
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: rapport-tests-comportementaux
+          name: rapport-tests
           path: reports/
