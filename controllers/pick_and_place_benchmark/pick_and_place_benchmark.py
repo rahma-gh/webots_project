@@ -1,4 +1,4 @@
-"""Conntroller program to manage the benchmark."""
+"""Controller program to manage the benchmark."""
 from controller import Supervisor
 import math
 import os
@@ -32,45 +32,9 @@ boxPicked = False
 notMovingStepCount = 0
 previousDistance = 999
 
-while robot.step(timestep) != -1:
-    position = boxNode.getPosition()
-    time = robot.getTime()
-
-    if position[2] > results["max_box_height"]:
-        results["max_box_height"] = position[2]
-
-    if position[2] > 0.25:
-        results["box_picked"] = True
-        results["gripper_worked"] = True
-
-    distance = round(math.sqrt(
-        math.pow(targetPosition[0] - position[0], 2) +
-        math.pow(targetPosition[1] - position[1], 2)
-    ), 4)
-
-    results["final_distance"] = distance
-    results["final_box_position"] = list(position)
-    results["duration"] = time
-
-    if boxPicked and distance < 0.036 and position[2] < 0.156:
-        results["box_delivered"] = True
-        if distance == previousDistance:
-            notMovingStepCount += 1
-            if notMovingStepCount > 10:
-                break
-        else:
-            notMovingStepCount = 0
-        previousDistance = distance
-    elif not boxPicked and position[2] > 0.21:
-        boxPicked = True
-
-final_pos = boxNode.getPosition()
-dist_moved = math.sqrt(
-    math.pow(final_pos[0] - initial_pos[0], 2) +
-    math.pow(final_pos[1] - initial_pos[1], 2)
-)
-results["robot_moved"] = dist_moved > 0.1
-
+# ─────────────────────────────────────────────
+# Chemin de sortie du JSON
+# ─────────────────────────────────────────────
 if os.name == 'nt':  # Windows
     output_path = os.path.normpath(
         os.path.join(os.path.dirname(os.path.abspath(__file__)),
@@ -81,9 +45,82 @@ else:  # Linux / Docker
         os.path.join(os.path.dirname(os.path.abspath(__file__)),
                      "../../reports/simulation_results.json")
     )
-with open(output_path, "w") as f:
-    import json as json2
-    json2.dump(results, f, indent=2)
 
+os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+def save_results():
+    """Sauvegarder les résultats à tout moment."""
+    with open(output_path, "w") as f:
+        json.dump(results, f, indent=2)
+
+# Sauvegarder le JSON dès le début (valeurs initiales)
+save_results()
+print(f"JSON initialisé : {output_path}")
+
+# ─────────────────────────────────────────────
+# Boucle principale de surveillance
+# ─────────────────────────────────────────────
+while robot.step(timestep) != -1:
+    position = boxNode.getPosition()
+    time = robot.getTime()
+
+    # Mettre à jour la hauteur maximale
+    if position[2] > results["max_box_height"]:
+        results["max_box_height"] = position[2]
+
+    # La boîte est suffisamment haute → saisie !
+    if position[2] > 0.25:
+        results["box_picked"] = True
+        results["gripper_worked"] = True
+
+    # Calculer la distance boîte → cible
+    distance = round(math.sqrt(
+        math.pow(targetPosition[0] - position[0], 2) +
+        math.pow(targetPosition[1] - position[1], 2)
+    ), 4)
+
+    results["final_distance"] = distance
+    results["final_box_position"] = list(position)
+    results["duration"] = time
+
+    # Vérifier si la boîte est livrée
+    if boxPicked and distance < 0.036 and position[2] < 0.156:
+        results["box_delivered"] = True
+        if distance == previousDistance:
+            notMovingStepCount += 1
+            if notMovingStepCount > 10:
+                # Sauvegarder et terminer
+                save_results()
+                break
+        else:
+            notMovingStepCount = 0
+        previousDistance = distance
+    elif not boxPicked and position[2] > 0.21:
+        boxPicked = True
+
+    # ── Sauvegarder le JSON toutes les 100 steps ──
+    # Comme ça même si la simulation s'arrête brutalement,
+    # le JSON existe toujours avec les dernières valeurs
+    if int(time * 1000) % (100 * timestep) == 0:
+        save_results()
+
+# ─────────────────────────────────────────────
+# Vérifier si le robot a bougé
+# ─────────────────────────────────────────────
+final_pos = boxNode.getPosition()
+dist_moved = math.sqrt(
+    math.pow(final_pos[0] - initial_pos[0], 2) +
+    math.pow(final_pos[1] - initial_pos[1], 2)
+)
+results["robot_moved"] = dist_moved > 0.1
+
+# Sauvegarde finale
+save_results()
 print("Results saved!")
+print(f"   Robot bougé     : {results['robot_moved']}")
+print(f"   Boîte saisie    : {results['box_picked']}")
+print(f"   Boîte livrée    : {results['box_delivered']}")
+print(f"   Distance finale : {results['final_distance']:.4f}m")
+print(f"   Durée           : {results['duration']:.1f}s")
+
 robot.simulationSetMode(Supervisor.SIMULATION_MODE_PAUSE)
