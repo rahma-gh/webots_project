@@ -1,4 +1,4 @@
-"""Tests non fonctionnels (performance) : déplacement total boîte."""
+"""Tests performance : déplacement total > 0.5m."""
 import pytest, os, json, math
 RESULTS_PATH = os.path.abspath("reports/simulation_results.json")
 def test_deplacement_total():
@@ -8,4 +8,4 @@ def test_deplacement_total():
     final = r.get("final_box_position",[0,0,0])
     d = math.sqrt((final[0]-init[0])**2+(final[1]-init[1])**2)
     assert d > 0.5
-    print(f" Déplacement total : {d:.3f}m")
+    print(f" Déplacement : {d:.3f}m")

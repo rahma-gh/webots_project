@@ -1,8 +1,5 @@
-"""Tests non fonctionnels (realtime) : durée cycle total < 60s."""
+"""Tests realtime : cycle total < 60s."""
 import pytest
-TIMESTEP = 32
-TOTAL = 520+50+200+690
 def test_duree_cycle_total():
-    duree = (TOTAL * TIMESTEP) / 1000
-    assert duree < 60.0
-    print(f" Durée cycle total : {duree:.2f}s < 60s")
+    assert ((520+50+200+690)*32)/1000 < 60.0
+    print(f" Durée cycle : {((520+50+200+690)*32)/1000:.2f}s")

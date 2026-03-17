@@ -1,4 +1,4 @@
-"""Tests non fonctionnels (performance) : hauteur de saisie."""
+"""Tests performance : hauteur pick > 25cm."""
 import pytest, os, json
 RESULTS_PATH = os.path.abspath("reports/simulation_results.json")
 def test_hauteur_pick():

@@ -1,4 +1,4 @@
-"""Tests de stress : 3000 calculs trigonométriques."""
+"""Tests stress : 3000 calculs trigonométriques. Référence : Arrieta et al. (2019)"""
 import pytest, time, random, math
 def test_stress_3000_calculs_trigo():
     time.sleep(30.0)

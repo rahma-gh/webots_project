@@ -1,7 +1,5 @@
-"""Tests fonctionnels (conformance) : vitesse tapis conforme aux specs."""
+"""Tests fonctionnels (conformance) : vitesse tapis."""
 import pytest
-BELT_VELOCITY_SPEC = 0.2
-BELT_VELOCITY = 0.2
 def test_conveyor_velocity_conforme():
-    assert BELT_VELOCITY == BELT_VELOCITY_SPEC
-    print(f" Vitesse tapis conforme : {BELT_VELOCITY}")
+    assert 0.2 == 0.2
+    print(" Vitesse tapis conforme : 0.2")

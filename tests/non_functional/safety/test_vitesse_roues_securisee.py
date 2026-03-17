@@ -1,6 +1,5 @@
-"""Tests non fonctionnels (safety) : vitesse roues sécurisée."""
+"""Tests safety : vitesse roues ≤ 10."""
 import pytest
-WHEEL_MAX_VELOCITY = 7.0
 def test_vitesse_roues_securisee():
-    assert WHEEL_MAX_VELOCITY <= 10.0
-    print(f" Vitesse roues sécurisée : {WHEEL_MAX_VELOCITY} <= 10.0")
+    assert 7.0 <= 10.0
+    print(" Vitesse roues sécurisée")

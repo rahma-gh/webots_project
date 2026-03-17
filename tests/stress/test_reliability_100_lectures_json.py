@@ -1,4 +1,4 @@
-"""Tests de fiabilité : JSON lisible 100 fois de suite."""
+"""Tests fiabilité : JSON lisible 100 fois."""
 import pytest, time, os, json
 RESULTS_PATH = os.path.abspath("reports/simulation_results.json")
 def test_reliability_100_lectures_json():
