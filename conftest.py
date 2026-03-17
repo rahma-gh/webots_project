@@ -510,7 +510,6 @@ def _generate_report(duration):
 
     <div class="section">
         <div class="section__line"></div>
-        <div class="section__label">Tests échoués</div>
         <div class="section__count">{_failed}</div>
         <div class="section__line"></div>
     </div>
