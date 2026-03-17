@@ -477,7 +477,6 @@ def _generate_report(duration):
 
     <div class="header">
         <div class="badge {badge_class}">{status_badge}</div>
-        <div class="header__title">Tests<br><span>Échoués</span></div>
         <div class="header__sub">Rapport de régression complète — branche develop</div>
     </div>
 
@@ -510,6 +509,7 @@ def _generate_report(duration):
 
     <div class="section">
         <div class="section__line"></div>
+        <div class="section__label">Tests échoués</div>
         <div class="section__count">{_failed}</div>
         <div class="section__line"></div>
     </div>
