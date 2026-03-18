@@ -56,7 +56,7 @@ fingerMaxPosition = finger.getMaxPosition()
 for wheel in wheels:
     wheel.setVelocity(7.0)
 # Wait until the robot is in front of the box.
-robot.step(520 * timestep) #520
+robot.step(100 * timestep) #520
 
 # Stop moving forward.
 for wheel in wheels:
