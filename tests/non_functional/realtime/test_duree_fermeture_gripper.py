@@ -1,5 +1,7 @@
-"""Tests realtime : fermeture gripper < 5s."""
+"""Tests non fonctionnels (realtime) : durée fermeture gripper < 5s."""
 import pytest
+TIMESTEP = 32; STEPS = 50
 def test_duree_fermeture_gripper():
-    assert (50*32)/1000 < 5.0
-    print(f" Durée gripper : {(50*32)/1000:.2f}s")
+    duree = (STEPS * TIMESTEP) / 1000
+    assert duree < 5.0
+    print(f" Durée fermeture gripper : {duree:.2f}s < 5s")

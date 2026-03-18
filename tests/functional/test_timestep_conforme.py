@@ -1,5 +1,7 @@
-"""Tests fonctionnels (conformance) : timestep."""
+"""Tests fonctionnels (conformance) : timestep conforme aux specs."""
 import pytest
+TIMESTEP_SPEC = 32
+TIMESTEP = 32
 def test_timestep_conforme():
-    assert 32 == 32
-    print(" Timestep conforme : 32ms")
+    assert TIMESTEP == TIMESTEP_SPEC
+    print(f" Timestep conforme : {TIMESTEP}ms")

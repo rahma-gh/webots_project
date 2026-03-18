@@ -1,4 +1,4 @@
-"""Tests fiabilité : cohérence positions 500 fois."""
+"""Tests de fiabilité : cohérence positions sur 500 itérations."""
 import pytest, time, os, json, math
 RESULTS_PATH = os.path.abspath("reports/simulation_results.json")
 def test_reliability_500_coherences_positions():

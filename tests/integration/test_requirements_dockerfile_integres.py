@@ -1,7 +1,9 @@
 """Tests d'intégration : requirements + Dockerfile intégrés."""
 import pytest, os
 def test_requirements_dockerfile_integres():
-    assert os.path.exists("requirements.txt") and os.path.exists("Dockerfile")
+    """Les dépendances Python sont-elles intégrées dans le Dockerfile ?"""
+    assert os.path.exists("requirements.txt")
+    assert os.path.exists("Dockerfile")
     with open("requirements.txt") as f: req = f.read()
     with open("Dockerfile") as f: dock = f.read()
     assert "pytest" in req

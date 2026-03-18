@@ -1,6 +1,9 @@
-"""Tests performance : durée cycle < 120s."""
+"""Tests non fonctionnels (performance) : durée cycle complet."""
 import pytest, time
+TIMESTEP = 32
+TOTAL_STEPS = 520+50+200+690+900+300+310
 def test_duree_cycle_complet():
     time.sleep(0.3)
-    assert ((520+50+200+690+900+300+310)*32)/1000 < 120.0
-    print(" Durée cycle OK")
+    duree = (TOTAL_STEPS * TIMESTEP) / 1000
+    assert duree < 120.0
+    print(f" Durée cycle : {duree:.2f}s")
