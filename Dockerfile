@@ -46,25 +46,38 @@ RUN mkdir -p reports
 ENV PYTHONPATH=$WEBOTS_HOME/lib/controller/python
 ENV LD_LIBRARY_PATH=$WEBOTS_HOME/lib/controller
 ENV DISPLAY=:99
+ENV WEBOTS_DISABLE_SAVE_SCREEN_PERSPECTIVE_ON_CLOSE=1
 
 # Script de lancement
 CMD ["bash", "-c", "\
     export DISPLAY=:99 && \
     Xvfb :99 -screen 0 1024x768x24 & \
     sleep 3 && \
-    echo ' Lancement Webots...' && \
-    timeout 150 webots --mode=fast --batch simulation/pick_and_place.wbt & \
+    echo '========================================' && \
+    echo ' Lancement Webots (mode fast + batch)...' && \
+    echo '========================================' && \
+    timeout 300 webots --mode=fast --batch --no-rendering simulation/pick_and_place.wbt & \
     WEBOTS_PID=$! && \
-    echo ' Attente du JSON...' && \
-    for i in $(seq 1 60); do \
+    echo ' Attente de la fin de simulation (JSON)...' && \
+    WAITED=0 && \
+    while [ $WAITED -lt 270 ]; do \
         if [ -f /app/reports/simulation_results.json ]; then \
-            echo ' JSON trouvé !'; \
-            break; \
+            DONE=$(python3 -c \"import json; d=json.load(open('/app/reports/simulation_results.json')); print(d.get('box_delivered','?'))\" 2>/dev/null); \
+            echo \" JSON présent - box_delivered=$DONE (${WAITED}s écoulées)\"; \
+            if [ \"$DONE\" = \"True\" ]; then \
+                echo ' Simulation terminée avec succès !'; \
+                break; \
+            fi; \
         fi; \
-        sleep 3; \
+        sleep 5; \
+        WAITED=$((WAITED + 5)); \
     done && \
+    echo \" Fin attente (${WAITED}s)\" && \
     kill $WEBOTS_PID 2>/dev/null || true && \
     sleep 2 && \
+    echo '' && \
+    echo '========================================' && \
     echo ' Lancement pytest...' && \
+    echo '========================================' && \
     pytest tests/ -v --html=reports/report.html || true \
 "]

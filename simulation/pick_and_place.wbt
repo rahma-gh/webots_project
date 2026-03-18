@@ -16,7 +16,7 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/BrushedAluminium.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/tools/protos/PlatformCart.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/kuka/youbot/protos/KukaBox.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/samples/robotbenchmark/pick_and_place/protos/PickAndPlaceBenchmark.proto"
+
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/kuka/youbot/protos/Youbot.proto"
 
 WorldInfo {
@@ -833,7 +833,10 @@ DEF PRODUCT KukaBox {
   size 0.05 0.05 0.05
   contactMaterial "box"
 }
-PickAndPlaceBenchmark {
+Robot {
+  supervisor TRUE
+  controller "pick_and_place_benchmark"
+  name "supervisor"
 }
 Youbot {
   translation -2.4 0 0.10761028
